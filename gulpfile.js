@@ -36,7 +36,8 @@ var dir = {
     jquery    : './node_modules/jquery/dist',
     easing    : './node_modules/jquery.easing',
     bootstrap : './node_modules/bootstrap-honoka/dist/js',
-    vue : './node_modules/vue/dist'
+    vue : './node_modules/vue/dist',
+    axios : './node_modules/axios/dist'
   },
   src: {
     ejs       : './src/ejs',
@@ -109,7 +110,7 @@ gulp.task("imagemin", () => {
 
 //js圧縮&結合&リネーム
 gulp.task("js.concat", () => {
-	return gulp.src([dir.assets.jquery + "/jquery.min.js", dir.assets.bootstrap + "/bootstrap.min.js", dir.assets.easing + "/jquery.easing.js", dir.assets.vue + "/vue.min.js"])
+	return gulp.src([dir.assets.jquery + "/jquery.min.js", dir.assets.bootstrap + "/bootstrap.min.js", dir.assets.easing + "/jquery.easing.js", dir.assets.vue + "/vue.min.js", dir.assets.axios + "/axios.min.js"])
 		.pipe(plumber())
 		.pipe(concat("lib.js"))
 		.pipe(gulp.dest(dir.src.js + "/concat/")); //srcとdistを別ディレクトリにしないと、自動でタスクが走る度にconcatしたものも雪だるま式に追加されていく

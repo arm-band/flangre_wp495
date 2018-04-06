@@ -7,11 +7,6 @@ $(function() {
 
     //ページ内スクロール
     pageScroll();
-
-//    $.getJSON(jsonFile, {ts: new Date().getTime()}, function(data) {
-//    }).done(function(data, status, xhr) {
-//    }).fail(function(xhr, status, error) {
-//	});
 });
 
 //mobile Saffari対策
@@ -62,3 +57,27 @@ function pageScroll() {
         });
     }
 }
+
+
+var app = new Vue({
+    el: "#spellcard",
+    data: function() {
+        posts: []
+    },
+    methods: {
+    },
+    created() {
+        var url = "https://wp495.ewigleere.net/qed495/wp-json/";
+        var url2 = "https://wp495.ewigleere.net/qed495/wp-json/wp/v2/posts/";
+        (async () => {
+          try {
+            var res = await axios.get(url);
+            this.posts = this.posts.concat(res.data);
+            this.loading = false;
+          } catch (error) {
+            console.log(error);
+            this.empty();
+          }
+        })();
+    }
+});

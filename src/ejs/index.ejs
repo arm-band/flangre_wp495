@@ -22,14 +22,14 @@ var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVar�
 
     <!-- main -->
     <main class="main <%= id %>">
-        <section class="container-fluid" id="news">
+        <section class="container-fluid spellcard" id="spellcard">
+            <div class="page-header">
+                <h2>スペルカード<small>Spell Cards</small></h2>
+            </div>
             <div class="row">
-                <div class="col-sm-12 col-md-3">
-                    <div class="page-header">
-                        <h2>What's new? <small>news</small></h2>
-                    </div>
-                    <p>新着情報一覧(最新<%=  variables.param[id].newscount %>件)です。過去の履歴は下記ボタンより。</p>
-                    <p><a href="./news/news1.html" class="btn">過去の履歴</a></p>
+                <div class="col-sm-12 col-md-3" v-for="post in posts" v-bind:key="post.title.rendered">
+                    {{post.title.rendered}}
+                    {{post.date}}
                 </div>
             </div>
         </section>
