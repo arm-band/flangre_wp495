@@ -35,7 +35,8 @@ var dir = {
   assets: {
     jquery    : './node_modules/jquery/dist',
     easing    : './node_modules/jquery.easing',
-    bootstrap : './node_modules/bootstrap-honoka/dist/js'
+    bootstrap : './node_modules/bootstrap-honoka/dist/js',
+    vue : './node_modules/vue/dist'
   },
   src: {
     ejs       : './src/ejs',
@@ -74,9 +75,6 @@ var dir = {
 var getVariables = function() {
     return JSON.parse(fs.readFileSync(dir.data.dir + dir.data.variables, { encoding: "UTF-8" }).replace(/\r|\n|\t/g, ""));
 }
-var getNews = function() {
-    return JSON.parse(fs.readFileSync(dir.data.dir + dir.data.news, { encoding: "UTF-8" }).replace(/\r|\n|\t/g, ""));
-}
 //ejs, js, scssにまたがって使用するパラメータ
 var getCommonVar = function() {
     return JSON.parse(fs.readFileSync(dir.data.dir + dir.data.commonvar, { encoding: "UTF-8" }).replace(/\r|\n|\t/g, ""));
@@ -111,7 +109,7 @@ gulp.task("imagemin", () => {
 
 //js圧縮&結合&リネーム
 gulp.task("js.concat", () => {
-	return gulp.src([dir.assets.jquery + "/jquery.min.js", dir.assets.bootstrap + "/bootstrap.min.js", dir.assets.easing + "/jquery.easing.js"])
+	return gulp.src([dir.assets.jquery + "/jquery.min.js", dir.assets.bootstrap + "/bootstrap.min.js", dir.assets.easing + "/jquery.easing.js", dir.assets.vue + "/vue.min.js"])
 		.pipe(plumber())
 		.pipe(concat("lib.js"))
 		.pipe(gulp.dest(dir.src.js + "/concat/")); //srcとdistを別ディレクトリにしないと、自動でタスクが走る度にconcatしたものも雪だるま式に追加されていく
@@ -143,86 +141,17 @@ gulp.task("js", ["js.concat", "js.uglify", "js.uglify.progress", "js.uglify.app"
 //ejs
 gulp.task("ejs", () => {
     var variables = getVariables();
-    var newsjson = getNews();
     var commonVar = getCommonVar();
     gulp.src(
-        [dir.src.ejs + "/**/*.ejs", "!" + dir.src.ejs + "/**/_*.ejs", "!" + dir.src.ejs + "/news.ejs", "!" + dir.src.ejs + "/article.ejs"] //_*.ejs(パーツ)とnews.ejs(別タスクで定義)はhtmlにしない
+        [dir.src.ejs + "/**/*.ejs", "!" + dir.src.ejs + "/**/_*.ejs"] //_*.ejs(パーツ)はhtmlにしない
     )
     .pipe(plumber())
     .pipe(data(function(file) {
         return { "filename": file.path }
     }))
-    .pipe(ejs({ variables, newsjson, commonVar }))
+    .pipe(ejs({ variables, commonVar }))
     .pipe(rename({ extname: ".html" }))
     .pipe(gulp.dest(dir.dist.html));
-});
-
-//新着情報専用のejsタスク
-gulp.task("news.ejs", function() {
-    var name = "news"; //テンプレート・生成するファイル名
-    var variables = getVariables();
-    var newsjson = getNews();
-    var commonVar = getCommonVar();
-    var tempFile = dir.src.ejs + "/" + name + ".ejs"; //テンプレート
-    var pages = 1; //ページカウンタ
-    var pageLength = Math.ceil(newsjson.news.length / newsjson.pagination); //ページの最大数
-    var newsBlock = []; //1ページ辺りの記事のオブジェクト
-
-    for(var i = 0; i < newsjson.news.length; i++) { //新着情報の件数
-        newsBlock.push(newsjson.news[i]); //件数分スタック
-
-        if(i % newsjson.pagination == (newsjson.pagination - 1)) { //記事件数を1ページ当たりの件数で割った剰余が(1ページ当たりの件数-1)の場合はhtmlを生成
-            gulp.src(tempFile)
-            .pipe(plumber())
-            .pipe(data(function(file) {
-                return { "filename": file.path }
-            }))
-            .pipe(ejs({ variables, newsBlock, commonVar, name, pages, pageLength }))
-            .pipe(rename(name + pages + ".html"))
-            .pipe(gulp.dest(dir.dist.news));
-
-            newsBlock = []; //空にする
-            pages++; //カウントアップ
-        }
-    }
-
-    if(newsBlock.length > 0) {
-        gulp.src(tempFile)
-        .pipe(plumber())
-        .pipe(data(function(file) {
-            return { "filename": file.path }
-        }))
-        .pipe(ejs({ variables, newsBlock, commonVar, name, pages, pageLength }))
-        .pipe(rename(name + pages + ".html"))
-        .pipe(gulp.dest(dir.dist.news));
-    }
-});
-
-//記事専用のejsタスク
-gulp.task("article.ejs", function() {
-    var name = "news"; //テンプレート・生成するファイル名
-    var variables = getVariables();
-    var newsjson = getNews();
-    var commonVar = getCommonVar();
-    var tempFile = dir.src.ejs + "/article.ejs"; //テンプレート
-    var pages = 1; //ページカウンタ
-
-    for(var i = 0; i < newsjson.news.length; i++) { //新着情報の件数
-        var newsBlock = newsjson.news[i];
-        var idTime = newsBlock.time.replace(/\//g, "");
-        var version = newsBlock.title.replace(/\./g, "_");
-        gulp.src(tempFile)
-        .pipe(plumber())
-        .pipe(data(function(file) {
-            return { "filename": file.path }
-        }))
-        .pipe(ejs({ variables, newsBlock, commonVar, name, pages }))
-        .pipe(rename(newsBlock.id + "_" + version + "-" + idTime + ".html"))
-        .pipe(gulp.dest(dir.dist.html + "/articles"));
-        if(i % newsjson.pagination == (newsjson.pagination - 1)) { //記事件数を1ページ当たりの件数で割った剰余が(1ページ当たりの件数-1)の場合はhtmlを生成
-            pages++; //カウントアップ
-        }
-    }
 });
 
 //favicon
@@ -270,13 +199,13 @@ gulp.task("styleguide", () => {
 });
 
 //gulpのデフォルトタスクで諸々を動かす
-gulp.task("default", ["sass", "sass-watch", "ejs", "news.ejs", "article.ejs", "js", "imagemin", "favicon", "connect-sync", "styleguide"], () => {
-	gulp.watch(dir.src.ejs + "/**/*.ejs", ["ejs", "news.ejs", "article.ejs"]);
+gulp.task("default", ["sass", "sass-watch", "ejs", "js", "imagemin", "favicon", "connect-sync", "styleguide"], () => {
+	gulp.watch(dir.src.ejs + "/**/*.ejs", ["ejs"]);
 //    gulp.watch(dir.dist.html + "/**/*.php",function () { browserSync.reload(); }); //php使うときはこっち
     gulp.watch(dir.src.scss + "/**/*.scss", ["sass", "styleguide"]);
 	gulp.watch(dir.src.img + "/**/*.+(jpg|jpeg|png|gif|svg)", ["imagemin"]);
 	gulp.watch(dir.src.js + "/**/*.js", ["js"]);
-    gulp.watch(dir.data.dir + "/**/*.json", ["ejs", "news.ejs", "article.ejs", "sass", "js", "styleguide"]);
+    gulp.watch(dir.data.dir + "/**/*.json", ["ejs", "sass", "js", "styleguide"]);
 
     gulp.watch([dir.dist.html + "/**/*.+(html|php)", dir.dist.css + "/**/*.css", dir.dist.img + "/**/*.+(jpg|jpeg|png|gif|svg)", dir.dist.js + "/**/*.js"]).on("change", () => { browserSync.reload(); });
 });

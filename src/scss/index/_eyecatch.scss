@@ -2,7 +2,7 @@
 
 .indexPage .eyecatch {
     $background-position: center center;
-    $eyecacth-height: 100vh;
+    $eyecacth-height: calc(100vh - 80px);
 
     margin-top: $navbar-height;
     height: $eyecacth-height;

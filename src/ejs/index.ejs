@@ -22,9 +22,6 @@ var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVar�
 
     <!-- main -->
     <main class="main <%= id %>">
-        <ol class="breadcrumb">
-            <li class="active"><a href="./"><i class="fa fa-fw fa-home" aria-hidden="true"></i>ホーム</a></li>
-        </ol>
         <section class="container-fluid" id="news">
             <div class="row">
                 <div class="col-sm-12 col-md-3">
@@ -33,27 +30,6 @@ var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVar�
                     </div>
                     <p>新着情報一覧(最新<%=  variables.param[id].newscount %>件)です。過去の履歴は下記ボタンより。</p>
                     <p><a href="./news/news1.html" class="btn">過去の履歴</a></p>
-                </div>
-                <div class="col-sm-12 col-md-9">
-                    <ul class="list-group">
-<% for(var i in newsjson.news) {
-    if(i <  variables.param[id].newscount) {
-        var datetime = newsjson.news[i].time.replace(/\//g, "-");
-        var idTime = newsjson.news[i].time.replace(/\//g, "");
-        var version = newsjson.news[i].title.replace(/\./g, "_");
-%>
-                        <li class="list-group-item">
-                            <a href="./articles/<%= newsjson.news[i].id %>_<%= version %>-<%= idTime %>.html">
-                                <h3 class="news_header"><%= newsjson.news[i].title %></h3>
-                                <time class="news_createtime" datetime="<%= datetime %>"><%= newsjson.news[i].time %></time>
-                                <p><%- newsjson.news[i].excerpt %></p>
-                            </a>
-                        </li>
-<%
-    }
-}
-%>
-                    </ul>
                 </div>
             </div>
         </section>
