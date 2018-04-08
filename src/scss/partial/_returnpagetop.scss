@@ -11,6 +11,7 @@ $rpt-size: 44px;
     width: $rpt-size;
     height: 100px;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
     &.active {
         bottom: -3rem;
     }
