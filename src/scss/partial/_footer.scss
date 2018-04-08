@@ -2,13 +2,31 @@
 
 .footer {
 	clear: both;
-	padding: 5px 5px 10px 5px;
+	padding: 0.5rem 1rem 1rem;
 	background-color: $main-color;
 	color: $bg-color;
-    .copyRight {
+    .copyRight, .powered {
         display: block;
         margin: 0 auto;
         font-size: 13px;
         text-align: center;
+    }
+    .powered {
+        a {
+            &:before {
+                font-family: "FontAwesome";
+                margin-right: 0.1rem;
+            }
+            &[href="https://sairoutine.github.io/Frandre/"] {
+                &:before {
+                    content: "\f13c";
+                }
+            }
+            &[href="https://ja.wordpress.org/"] {
+                &:before {
+                    content: "\f19a";
+                }
+            }
+        }
     }
 }

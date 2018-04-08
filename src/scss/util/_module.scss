@@ -28,23 +28,8 @@
 //キービジュアルの背景画像
 @mixin eyecatchBGImg($imgPath) {
     &:not(.mobile_Safari) {
-        background: url($imgPath) no-repeat center center fixed;
+        background: url($imgPath) no-repeat center center scroll;
         background-size: cover;
-    }
-    &.mobile_Safari { //index.jsでUAにより付与。mobile Safariバグ対策
-        &:before {
-            background: url($imgPath) no-repeat left top;
-            background-size: auto 100%; //画像とデバイスによっては100% autoでも
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding-bottom: 108px;
-            content: " ";
-            z-index: -1;
-        }
     }
 }
 //キービジュアルに見出しを左右上下中央寄せ
@@ -59,7 +44,8 @@
 }
 //キービジュアルの見出しのタイポグラフィ
 @mixin eyecatchTypo($fontSize) {
-    color: $link-color;
+    color: $bg-color;
+    text-shadow: 2px 2px 0 rgba($color, 0.8);
     z-index: 3;
     font: {
         size: $fontSize;

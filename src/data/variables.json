@@ -1,21 +1,20 @@
 {
     "commons": {
-        "sitename": "Kiribi Ususama",
         "year": "2018",
         "author": "アルム＝バンド",
         "twitteraccount": "Bredtn_1et",
-        "twitterimage": "https://github.com/arm-band/kiribi_ususama/blob/master/misc/img/kiribi_ususama.png",
-        "twittersiteurl": "https://github.com/arm-band/kiribi_ususama/"
+        "twitterimage": "https://wp495.ewigleere.net/img/ogp_image.jpg",
+        "twittersiteurl": "https://wp495.ewigleere.net/"
     },
     "param": {
         "index": {
-            "title": "ホーム",
-            "entitle": "Home",
+            "title": "Ripples of 4.9.5",
+            "entitle": "Ripples of 4.9.5",
             "css": "index",
             "js": "app.min",
-            "description": "gulpとEJSに対応したBootstrap Minimal Template",
+            "description": "フランちゃんウフフ",
             "hierarchy": 0,
-            "twitterimage": "eyecatch.jpg"
+            "twitterimage": "ogp_image.jpg"
         }
     }
 }

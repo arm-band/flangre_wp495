@@ -2,10 +2,9 @@
 var variables = variables;
 //var pathlessFilename = filename.slice(filename.lastIndexOf("\\") + 1); //パスなし、単独のファイル名
 id = filename.slice(filename.lastIndexOf("\\") + 1).replace(/\.ejs/g, ''); //PC内の絶対パスで最後の\の位置+1(=パスなしファイル名)から末尾までの文字列を切り取り、".ejs"の4文字を取り除く=拡張子なしのファイル名
-var newsjson = newsjson;
 var commonVar = commonVar;
 var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVarの中のナビゲーションバーの高さの値からpxを取り除き、数字だけにする(bodyタグのdata-offsetに使用)
-%><%- include("util/_year", { variables, id }) %><%- include("util/_pathdir", { variables, id }) %><%- include("util/_headset", { variables, id, path }) %>
+%><%- include("util/_year", { variables, id }) %><%- include("util/_headset", { variables, id, path }) %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -22,41 +21,39 @@ var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVar�
 
     <!-- main -->
     <main class="main <%= id %>">
+        <section class="container-fluid about" id="about">
+            <div class="row">
+                <article class="col-xs-12">
+                    <div class="about_header page-header">
+                        <h2 v-text="about[0].title.rendered"></h2>
+                    </div>
+                    <div class="about_contents"v-html="about[0].content.rendered"></div>
+                </article>
+            </div>
+        </section>
         <section class="container-fluid spellcard" id="spellcard">
             <div class="page-header">
                 <h2>スペルカード<small>Spell Cards</small></h2>
             </div>
             <div class="row">
-                <div class="col-sm-12 col-md-3" v-for="post in posts" v-bind:key="post.title.rendered">
-                    {{post.title.rendered}}
-                    {{post.date}}
+                <div class="col-sm-12 col-md-6 col-lg-4" v-for="post in posts" v-bind:key="post.title.rendered">
+                    <div class="panel panel-danger">
+                    	<div class="panel-heading">
+                    		<h3 v-text="post.title.rendered"></h3>
+                    	</div>
+                    	<div class="panel-body" v-html="post.content.rendered"></div>
+                    	<div class="panel-footer" v-text="post.date"></div>
+                    </div>
                 </div>
             </div>
         </section>
-        <section class="container-fluid" id="about">
+        <section class="container-fluid noContinue" id="noContinue">
             <div class="row">
                 <article class="col-xs-12">
-                    <div class="page-header">
-                        <h2>What's this page? <small>About page</small></h2>
+                    <div class="about_header page-header">
+                        <h2 v-text="noContinue[0].title.rendered"></h2>
                     </div>
-                    <p>自分用の小規模Webサイト制作用テンプレートです。</p>
-                    <p>Scss, ejs, gulp使用。</p>
-                    <p><a href="./about.html" class="btn">詳しい概要</a></p>
-                    <h3>名前の由来</h3>
-                    <p>Bootstrapを使っていることから。Bootstrapが電源投入、自動実行といった意味合いなので、何か物事を始めるイメージと火で火打石を連想。「Hiuchiishi」だと長いのと、これから事を始めるに当たって魔除けの意味も込めて切り火からKiribi。</p>
-                    <p>gulpを使っている方はgulpが飲み込む、ごくごくと飲むという意味(だからシェイクのロゴなのですね)なので、火の神様というか仏教の明王で、一切不浄を飲み込み浄化する烏枢沙摩明王からお名前をお借りしました。</p>
-                    <h3>烏枢沙摩明王の真言</h3>
-                    <h4>解穢真言</h4>
-                    <p><ruby>
-                        ॐ<rp>(</rp><rt>オン</rt><rp>)</rp>
-                        　<rp>(</rp><rt>・</rt><rp>)</rp>
-                        क्रोधना<rp>(</rp><rt>クロダノウ</rt><rp>)</rp>
-                        　<rp>(</rp><rt>・</rt><rp>)</rp>
-                        हूं<rp>(</rp><rt>ウン</rt><rp>)</rp>
-                        ज<rp>(</rp><rt>ジャク</rt><rp>)</rp>
-                        　<rp>(</rp><rt>・</rt><rp>)</rp>
-                        स्वाहा<rp>(</rp><rt>ソワカ</rt><rp>)</rp>
-                    </ruby></p>
+                    <div class="about_contents"v-html="noContinue[0].content.rendered"></div>
                 </article>
             </div>
         </section>
@@ -67,8 +64,11 @@ var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVar�
 
 </div>
 
-<script src="<%= path %>js/lib.min.js"></script>
-<script src="<%= path %>js/progress.min.js"></script>
-<script src="<%= path %>js/<%= variables.param[id].js %>.js"></script>
+<script src="./js/lib.min.js"></script>
+<script src="./js/progress.min.js"></script>
+<script src="./js/<%= variables.param[id].js %>.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<script src="./js/vueapp.js"></script>
 </body>
 </html>

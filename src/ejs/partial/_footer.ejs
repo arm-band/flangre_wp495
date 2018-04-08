@@ -1,6 +1,7 @@
-    <p class="returnPageTop"><i class="fa fa-fw fa-arrow-up" aria-hidden="true"></i></p>
+    <div class="returnPageTop" v-if="position > 400" v-on:click="returnPageTop()" v-transition><img src="./img/rpt_lvateinn.png" alt="ページトップへ戻る"></div>
     <!-- footer -->
     <footer class="footer">
         <small class="copyRight">Copyright &#169; <%= copyRightYear %> <%= variables.commons.author %> All Right Reserved.</small>
+        <small class="powered">Powered by <a href="https://sairoutine.github.io/Frandre/">Frandre</a>, <a href="https://ja.wordpress.org/">WordPress 4.9.5</a>, and <a href="https://jp.vuejs.org/index.html">Vue.js</a></small>
     </footer>
     <!-- /footer -->
