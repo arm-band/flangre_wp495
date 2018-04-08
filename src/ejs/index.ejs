@@ -23,11 +23,11 @@ var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVar„Å
     <main class="main <%= id %>">
         <section class="container-fluid about" id="about">
             <div class="row">
-                <article class="col-xs-12">
+                <article class="col-xs-12" v-for="aboutElm in about" v-bind:key="aboutElm.title.rendered">
                     <div class="about_header page-header">
-                        <h2 v-text="about[0].title.rendered"></h2>
+                        <h2 v-text="aboutElm.title.rendered"></h2>
                     </div>
-                    <div class="about_contents"v-html="about[0].content.rendered"></div>
+                    <div class="about_contents"v-html="aboutElm.content.rendered"></div>
                 </article>
             </div>
         </section>
@@ -49,11 +49,11 @@ var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVar„Å
         </section>
         <section class="container-fluid noContinue" id="noContinue">
             <div class="row">
-                <article class="col-xs-12">
+                <article class="col-xs-12" v-for="noContinueElm in noContinue" v-bind:key="noContinueElm.title.rendered">
                     <div class="about_header page-header">
-                        <h2 v-text="noContinue[0].title.rendered"></h2>
+                        <h2 v-text="noContinueElm.title.rendered"></h2>
                     </div>
-                    <div class="about_contents"v-html="noContinue[0].content.rendered"></div>
+                    <div class="about_contents"v-html="noContinueElm.content.rendered"></div>
                 </article>
             </div>
         </section>
