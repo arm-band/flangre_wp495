@@ -5,19 +5,7 @@ const app = new Vue({
             siteInfo: [],
             posts: [],
             about: [],
-            noContinue: [],
-            position: 0
-        }
-    },
-    ready: () => {
-        var self = this;
-        document.onscroll = (e) => {
-            self.position = document.documentElement.scrollTop || document.body.scrollTop;
-        }
-    },
-    methods: {
-        returnPageTop: () => {
-            $("body, html").animate({ scrollTop: 0 }, 1000, "easeInOutCirc");
+            noContinue: []
         }
     },
     created() {

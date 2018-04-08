@@ -5,10 +5,17 @@ $rpt-size: 44px;
 .returnPageTop {
     position: fixed;
     right: 1rem;
-    bottom: 0;
+    bottom: -100px;
     text-align: center;
     cursor: pointer;
-    transition: all .3s ease;
-    width: 144px;
-    height: 300px;
+    width: $rpt-size;
+    height: 100px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    &.active {
+        bottom: -3rem;
+    }
+    img {
+        width: $rpt-size;
+        height: 100px;
+    }
 }

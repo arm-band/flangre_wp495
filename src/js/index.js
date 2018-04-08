@@ -9,15 +9,19 @@ $(function() {
 //ページトップへ戻る
 function pageTop() {
     var returnPageTop = $(".returnPageTop");
-
 	var startPos = 0;
 	$(window).on("scroll", function(){
+        var rptClass = "active";
         //スクロール距離が400pxより大きければページトップへ戻るボタンを表示
 		var currentPos = $(this).scrollTop();
-		if (currentPos > 200) {
-			returnPageTop.fadeIn();
+		if (currentPos > 400) {
+            if(!returnPageTop.hasClass(rptClass)) {
+                returnPageTop.addClass(rptClass);
+            }
 		} else {
-			returnPageTop.fadeOut();
+            if(returnPageTop.hasClass(rptClass)) {
+                returnPageTop.removeClass(rptClass);
+            }
 		}
 	});
 
