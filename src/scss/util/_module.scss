@@ -27,20 +27,14 @@
 
 //キービジュアルの背景画像
 @mixin eyecatchBGImg($imgPath) {
-    &:not(.mobile_Safari) {
-        background: url($imgPath) no-repeat center center scroll;
-        background-size: cover;
-    }
+    background: url($imgPath) no-repeat center center scroll;
+    background-size: cover;
 }
 //キービジュアルに見出しを左右上下中央寄せ
 @mixin eyecatchCenter() {
     display: flex;
     justify-content: center;
     align-items: center;
-    .container-fluid {
-        box-sizing: border-box; //IEバグフィックス
-        max-width: 100%; //IEバグフィックス
-    }
 }
 //キービジュアルの見出しのタイポグラフィ
 @mixin eyecatchTypo($fontSize) {

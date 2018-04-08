@@ -4,7 +4,7 @@ var variables = variables;
 id = filename.slice(filename.lastIndexOf("\\") + 1).replace(/\.ejs/g, ''); //PC内の絶対パスで最後の\の位置+1(=パスなしファイル名)から末尾までの文字列を切り取り、".ejs"の4文字を取り除く=拡張子なしのファイル名
 var commonVar = commonVar;
 var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVarの中のナビゲーションバーの高さの値からpxを取り除き、数字だけにする(bodyタグのdata-offsetに使用)
-%><%- include("util/_year", { variables, id }) %><%- include("util/_headset", { variables, id, path }) %>
+%><%- include("util/_year", { variables, id }) %><%- include("util/_headset", { variables, id }) %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -13,6 +13,8 @@ var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVar�
 <body data-spy="scroll" data-target="#navbarMenu" data-offset="<%= navbarHeight %>" class="<%= id %>Page" id="<%= id %>Page">
 
 <%- include("index/_loading") %>
+
+<div id="ripples"></div>
 
 <div id="wrapper">
 <%- include("partial/_header", { variables, id, commonVar }) %>

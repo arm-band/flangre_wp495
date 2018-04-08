@@ -1,15 +1,39 @@
 @charset "utf-8";
 
+$eyecacth-height: calc(100vh - 80px);
+
 .indexPage .eyecatch {
     $background-position: center center;
-    $eyecacth-height: calc(100vh - 80px);
 
     margin-top: $navbar-height;
     height: $eyecacth-height;
     overflow: hidden;
+    background-color: transparent;
+    z-index: -1;
+}
+#ripples {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin-top: $navbar-height;
+    height: $eyecacth-height;
+    z-index: 1;
+    overflow: hidden;
     @include eyecatchBGImg("../img/eyecatch.jpg");
+}
+.eyecatch_wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    margin-top: $navbar-height;
+    height: $eyecacth-height;
     @include eyecatchCenter();
-    &_header {
-        @include eyecatchTypo(calc(4em + 4vw));
-    }
+    z-index: 100;
+}
+.eyecatch_header {
+    position: absolute;
+    @include eyecatchTypo(calc(4em + 4vw));
 }

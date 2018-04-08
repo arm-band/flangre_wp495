@@ -4,6 +4,23 @@ $(function() {
 
     //ページ内スクロール
     pageScroll();
+
+    //ripples of 495 years
+    var $el = $("#ripples");
+    $el.ripples({
+		resolution: 256,
+		dropRadius: 20,
+		perturbance: 0.04,
+		interactive: false
+	});
+    var timer = setInterval(function() {
+		var x = Math.random() * $el.outerWidth();
+		var y = Math.random() * $el.outerHeight();
+		var resolution = 256;
+		var dropRadius = 20;
+		var strength = 0.01 + Math.random() * 0.05;
+		$el.ripples("drop", x, y,  dropRadius, strength);
+	}, 1000);
 });
 
 //ページトップへ戻る
