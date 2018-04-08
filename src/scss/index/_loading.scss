@@ -1,15 +1,59 @@
 @charset "utf-8";
 
+@keyframes longHandsRotate { //keyframeアニメーション用
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+@keyframes shortHandsRotate { //keyframeアニメーション用
+	0% { transform: rotate(150deg); }
+	100% { transform: rotate(510deg); }
+}
+
 #loadContent {
-	width: 100px;
-	height: 100px;
+	width: 240px;
+	height: 240px;
 	position: fixed;
 	text-align: center;
 	color: $link-color;
 	z-index: 1050;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -10%);
+    transform: translateX(-50%);
+    #handsWrapper {
+        position: relative;
+        width: 240px;
+        height: 240px;
+        float: left;
+        margin-top: -120px;
+    }
+    img {
+        display: inline-block;
+        float: left;
+        position: absolute;
+    }
+    #long, #short {
+        transform-origin: bottom;
+    }
+    #long {
+        height: 120px;
+        width: auto;
+        top: 0;
+        left: 99px;
+        transform-origin: bottom;
+        animation: longHandsRotate 4s linear 0s infinite backwards;
+    }
+    #short {
+        height: 80px;
+        width: auto;
+        top: 40px;
+        left: 105px;
+        animation: shortHandsRotate 16s linear 0s infinite backwards;
+    }
+    #clock {
+        width: 240px;
+        height: 240px;
+        transform: translate(-50%, -50%);
+    }
     progress {
         transform: translateX(-18%);
         margin-top: 10px;
