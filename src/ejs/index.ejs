@@ -55,7 +55,22 @@ var navbarHeight = commonVar["navbar-height"].replace(/\px/g, ''); //commonVar�
                     <div class="about_header page-header">
                         <h2 v-text="noContinueElm.title.rendered"></h2>
                     </div>
-                    <div class="about_contents"v-html="noContinueElm.content.rendered"></div>
+                    <div class="about_contents" v-html="noContinueElm.content.rendered"></div>
+                </article>
+            </div>
+        </section>
+        <section class="container-fluid snsShare" id="snsShare">
+            <div class="row">
+                <article class="col-xs-12">
+                    <div class="share_header page-header">
+                        <h2>シェアする<small>SNS Share</small></h2>
+                    </div>
+                    <div class="share_contents">
+                        <ul class="snsshare">
+                            <li class="share_twitter"><a href="http://twitter.com/share?url=<%= variables.commons.twittersiteurl %>&text=<%= metaTitle %>%20%2d%20<%= metaDescription %>" target="_blank" title="Twitter Share"><span class="sr-only">Twitterでシェアする</span></a></li>
+                            <li class="share_facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=<%= variables.commons.twittersiteurl %>" target="_blank" title="Facebook Share"><span class="sr-only">facebookでシェアする</span></a></li>
+                        </ul>
+                    </div>
                 </article>
             </div>
         </section>

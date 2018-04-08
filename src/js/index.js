@@ -8,7 +8,7 @@ $(function() {
     //ripples of 495 years
     var $el = $("#ripples");
     $el.ripples({
-		resolution: 256,
+		resolution: 495,
 		dropRadius: 20,
 		perturbance: 0.04,
 		interactive: false
@@ -16,11 +16,11 @@ $(function() {
     var timer = setInterval(function() {
 		var x = Math.random() * $el.outerWidth();
 		var y = Math.random() * $el.outerHeight();
-		var resolution = 256;
+		var resolution = 495;
 		var dropRadius = 20;
-		var strength = 0.01 + Math.random() * 0.05;
+		var strength = 0.04 + Math.random() * 0.05;
 		$el.ripples("drop", x, y,  dropRadius, strength);
-	}, 1000);
+	}, 2000);
 });
 
 //ページトップへ戻る

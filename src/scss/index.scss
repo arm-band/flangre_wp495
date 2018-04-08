@@ -106,4 +106,56 @@
             }
         }
     }
+    .snsShare {
+        .page-header {
+            h2:before {
+                content: "\f1e0";
+            }
+        }
+        ul {
+            list-style: none outside;
+            text-align: center;
+            margin: 1rem 1rem 2rem 1rem;
+            li {
+                display: inline-block;
+                a {
+                    font-size: 4rem;
+                    border-radius: 4px;
+                    width: 4rem;
+                    height: 4rem;
+                    margin: 0 1rem;
+                    padding: 2.2rem;
+                    display: inline-block;
+                    position: relative;
+                    &:after {
+                        font-family: "FontAwesome";
+                        display: inline-block;
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    &, &:link, &:hover, &:visited, &:active, &:focus {
+                        color: $bg-color;
+                    }
+                }
+                &.share_twitter {
+                    a {
+                        background-color: $bc-twitter;
+                        &:after {
+                            content: "\f099";
+                        }
+                    }
+                }
+                &.share_facebook {
+                    a {
+                        background-color: $bc-facebook;
+                        &:after {
+                            content: "\f09a";
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
